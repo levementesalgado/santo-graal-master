@@ -111,10 +111,7 @@ export function Layout({ children }: LayoutProps) {
                 </span>
               </div>
             </div>
-            <Button variant="outline" className="w-full justify-start gap-2 h-9 text-xs rounded-lg">
-              <Settings className="w-3.5 h-3.5" />
-              Configurações
-            </Button>
+
           </div>
         </div>
       </aside>
@@ -172,13 +169,7 @@ export function Layout({ children }: LayoutProps) {
                 </Select>
               </div>
 
-              <Button variant="ghost" size="icon" className="rounded-full relative">
-                <Bell className="w-5 h-5 text-muted-foreground" />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-destructive rounded-full" />
-              </Button>
-              <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center text-accent-foreground font-bold">
-                JD
-              </div>
+
             </div>
           </div>
         </header>
@@ -288,12 +279,7 @@ export function Layout({ children }: LayoutProps) {
                 ))}
               </nav>
 
-              <div className="mt-auto">
-                <Button className="w-full rounded-2xl h-12 gap-2">
-                  <Settings className="w-5 h-5" />
-                  Configurações
-                </Button>
-              </div>
+
             </motion.div>
           </>
         )}
