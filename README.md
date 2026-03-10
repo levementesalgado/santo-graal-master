@@ -1,26 +1,74 @@
-# Stack Tecnológico
+# Santo Graal — Análise de Dados Agrícolas CONAB
 
-Este projeto utiliza o seguinte stack tecnológico:
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Primeira ferramenta pública com análises automáticas dos dados oficiais da CONAB, desenvolvida por devs anônimos da ASTL.
 
-# Fluxo de Desenvolvimento
+## Stack Tecnológico
 
-1. Consultar os requisitos do usuário e ajustar o estilo do tema em `src/index.css` e `tailwind.config.ts`
-2. Com base nos requisitos do usuário, dividir as páginas que precisam ser implementadas
-3. Organizar as funcionalidades a serem implementadas em cada página e criar a pasta correspondente em `pages` com seu arquivo de entrada `Index.tsx`
-4. Criar as configurações de rota em `App.tsx`, importando os arquivos de entrada `Index.tsx` de cada página
-5. Com base nos requisitos organizados anteriormente, se os requisitos forem simples, todo o trabalho da página pode ser feito diretamente em `Index.tsx`
-6. Se os requisitos forem complexos, a página pode ser dividida em vários componentes, com a seguinte estrutura de diretórios:
-   - `Index.tsx` (entrada)
-   - `/components/` (componentes)
-   - `/hooks/` (hooks)
-   - `/stores/` (se houver necessidade de comunicação complexa, pode-se usar zustand para a comunicação)
-7. Após concluir os requisitos, é necessário executar `pnpm i` para instalar as dependências e usar `npm run lint` & `npx tsc --noEmit -p tsconfig.app.json --strict` para verificar e corrigir os problemas
+- **Vite** — build tool e dev server
+- **TypeScript** — tipagem estática
+- **React** — interface de usuário
+- **shadcn-ui** — componentes de UI
+- **Tailwind CSS** — estilização
+- **Supabase** — banco de dados e autenticação
+- **React Query** — gerenciamento de estado assíncrono
 
-# Integração com Backend
-- Quando for necessário adicionar uma nova interface ou operar o supabase, primeiro deve-se adicionar o arquivo de API correspondente em `src/api` e exportar os tipos de dados correspondentes. Pode-se consultar o arquivo `src/demo.ts`. Se for supabase, também é necessário implementar adequadamente
-- Tanto o frontend quanto a implementação com supabase devem ser feitos estritamente de acordo com os tipos de dados, evitando ao máximo modificar os tipos de dados definidos. Se houver alterações, é necessário verificar todos os arquivos que referenciam esses tipos
+## Configuração do Ambiente
+
+1. Copie o arquivo de exemplo e preencha com suas credenciais do Supabase:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Instale as dependências:
+   ```bash
+   pnpm install
+   ```
+
+3. Rode o projeto:
+   ```bash
+   pnpm dev
+   ```
+
+## Variáveis de Ambiente
+
+| Variável | Descrição |
+|---|---|
+| `VITE_SUPABASE_URL` | URL do projeto Supabase |
+| `VITE_SUPABASE_ANON_KEY` | Chave pública (anon) do Supabase |
+
+## Fonte de Dados
+
+Os dados são obtidos diretamente do portal de informações da CONAB:
+- **Série Histórica Café** — atualizada quadrimestralmente
+- Endpoint: `portaldeinformacoes.conab.gov.br/download-arquivos.html`
+
+Para sincronizar os dados reais, acesse a página **Gerenciamento de Dados** dentro do app e clique em **Sincronizar Agora**.
+
+## Fluxo de Desenvolvimento
+
+1. Ajustar o estilo do tema em `src/index.css` e `tailwind.config.ts`
+2. Dividir as páginas a serem implementadas com base nos requisitos
+3. Criar a pasta correspondente em `pages` com seu arquivo de entrada `Index.tsx`
+4. Configurar as rotas em `App.tsx` importando os `Index.tsx` de cada página
+5. Para requisitos simples, todo o trabalho pode ser feito diretamente em `Index.tsx`
+6. Para requisitos complexos, dividir a página em:
+   - `Index.tsx` — entrada
+   - `/components/` — componentes
+   - `/hooks/` — hooks
+   - `/stores/` — estado global com Zustand (quando necessário)
+7. Após concluir, rodar `pnpm i` e verificar com:
+   ```bash
+   npm run lint
+   npx tsc --noEmit -p tsconfig.app.json --strict
+   ```
+
+## Integração com Backend
+
+- Para novas interfaces com Supabase, criar o arquivo de API correspondente em `src/api/` e exportar os tipos
+- Consultar `src/api/supabase.ts` como referência de implementação
+- Seguir estritamente os tipos definidos em `src/lib/index.ts`, evitando modificações que quebrem referências existentes
+- Os hooks de acesso ao banco ficam em `src/hooks/useConabData.ts`
+
+## Deploy
+
+O projeto faz deploy automático no GitHub Pages via GitHub Actions a cada push na branch `main`. As variáveis de ambiente devem ser configuradas em **Settings → Secrets and variables → Actions → Variables** no repositório.
