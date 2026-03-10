@@ -208,7 +208,7 @@ function cdnPrefixImages(): Plugin {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   return {
-    base: "/santo-graal/",
+    base: "/santo-graal-master/",
     server: {
       host: "::",
       port: 8080,
